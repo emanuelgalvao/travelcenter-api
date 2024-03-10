@@ -3,11 +3,11 @@ package com.emanuelgalvao.travelcenter.app.controllers
 import com.emanuelgalvao.travelcenter.app.dto.request.RatingRequestDTO
 import com.emanuelgalvao.travelcenter.app.dto.response.DestinationDetailsRatingResponseDTO
 import com.emanuelgalvao.travelcenter.app.utils.toResponseDTO
-import com.emanuelgalvao.travelcenter.entities.DestinationRating
-import com.emanuelgalvao.travelcenter.exceptions.BadRequestException
-import com.emanuelgalvao.travelcenter.repositories.DestinationRatingRepository
-import com.emanuelgalvao.travelcenter.repositories.DestinationRepository
-import com.emanuelgalvao.travelcenter.repositories.UserRepository
+import com.emanuelgalvao.travelcenter.shared.entities.DestinationRating
+import com.emanuelgalvao.travelcenter.shared.exceptions.BadRequestException
+import com.emanuelgalvao.travelcenter.shared.repositories.DestinationRatingRepository
+import com.emanuelgalvao.travelcenter.shared.repositories.DestinationRepository
+import com.emanuelgalvao.travelcenter.shared.repositories.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody

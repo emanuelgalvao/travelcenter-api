@@ -4,10 +4,10 @@ import com.emanuelgalvao.travelcenter.app.dto.response.DestinationDetailsAttract
 import com.emanuelgalvao.travelcenter.app.dto.response.DestinationDetailsRatingResponseDTO
 import com.emanuelgalvao.travelcenter.app.dto.response.HomeSectionDestinationResponseDTO
 import com.emanuelgalvao.travelcenter.app.dto.response.UserFavoriteResponseDTO
-import com.emanuelgalvao.travelcenter.entities.Destination
-import com.emanuelgalvao.travelcenter.entities.DestinationAttraction
-import com.emanuelgalvao.travelcenter.entities.DestinationRating
-import com.emanuelgalvao.travelcenter.entities.UserFavorite
+import com.emanuelgalvao.travelcenter.shared.entities.Destination
+import com.emanuelgalvao.travelcenter.shared.entities.DestinationAttraction
+import com.emanuelgalvao.travelcenter.shared.entities.DestinationRating
+import com.emanuelgalvao.travelcenter.shared.entities.UserFavorite
 
 fun DestinationAttraction.toResponseDTO(): DestinationDetailsAttractionResponseDTO =
     DestinationDetailsAttractionResponseDTO(

@@ -1,14 +1,13 @@
 package com.emanuelgalvao.travelcenter.app.controllers
 
 import com.emanuelgalvao.travelcenter.app.dto.request.LoginRequestDTO
-import com.emanuelgalvao.travelcenter.app.dto.request.RecoverPasswordRequestDTO
 import com.emanuelgalvao.travelcenter.app.dto.request.RegisterRequestDTO
-import com.emanuelgalvao.travelcenter.dto.output.AuthenticationOutputDTO
-import com.emanuelgalvao.travelcenter.entities.User
-import com.emanuelgalvao.travelcenter.exceptions.BadRequestException
-import com.emanuelgalvao.travelcenter.repositories.UserRepository
-import com.emanuelgalvao.travelcenter.security.TokenService
-import com.emanuelgalvao.travelcenter.security.UserRole
+import com.emanuelgalvao.travelcenter.admin.dto.response.AuthenticationResponseDTO
+import com.emanuelgalvao.travelcenter.shared.entities.User
+import com.emanuelgalvao.travelcenter.shared.exceptions.BadRequestException
+import com.emanuelgalvao.travelcenter.shared.repositories.UserRepository
+import com.emanuelgalvao.travelcenter.shared.security.TokenService
+import com.emanuelgalvao.travelcenter.shared.security.UserRole
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.security.authentication.AuthenticationManager
@@ -45,7 +44,7 @@ class AppUserController {
 
             user?.let {
                 val token = tokenService.generateToken(it)
-                val authenticationOutputDTO = AuthenticationOutputDTO(
+                val authenticationOutputDTO = AuthenticationResponseDTO(
                     id = it.id,
                     name = it.name,
                     email = it.email,
@@ -88,7 +87,7 @@ class AppUserController {
 
             user?.let {
                 val token = tokenService.generateToken(it)
-                val authenticationOutputDTO = AuthenticationOutputDTO(
+                val authenticationOutputDTO = AuthenticationResponseDTO(
                     id = it.id,
                     name = it.name,
                     email = it.email,

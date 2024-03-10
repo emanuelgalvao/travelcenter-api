@@ -1,7 +1,7 @@
 package com.emanuelgalvao.travelcenter.app.controllers
 
 import com.emanuelgalvao.travelcenter.app.dto.response.SearchDestinationResponseDTO
-import com.emanuelgalvao.travelcenter.repositories.DestinationRepository
+import com.emanuelgalvao.travelcenter.shared.repositories.DestinationRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping

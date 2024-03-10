@@ -1,6 +1,6 @@
 package com.emanuelgalvao.travelcenter.app.dto.response
 
-import com.emanuelgalvao.travelcenter.entities.DestinationType
+import com.emanuelgalvao.travelcenter.shared.entities.DestinationType
 
 data class HomeDataResponseDTO(
     val tip: String,
