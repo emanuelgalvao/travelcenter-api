@@ -1,0 +1,970 @@
+{
+	"info": {
+		"_postman_id": "0fe22ad9-5413-4349-921b-986197cda90a",
+		"name": "Travel Center",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30509274"
+	},
+	"item": [
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Authentication",
+					"item": [
+						{
+							"name": "auth",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"save auth token\", function () {",
+											"    var token = pm.response.json().token;",
+											"    pm.collectionVariables.set(\"JWT_TOKEN\", token)",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"admin@admin.com\",\n    \"password\": \"admin\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/auth",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"auth"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Countries",
+					"item": [
+						{
+							"name": "countries",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/countries",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"countries"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Destination",
+					"item": [
+						{
+							"name": "destinations",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/destinations",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"destinations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "destination",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/destination/{{id}}",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"destination",
+										"{{id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "destination",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Tóquio\",\n    \"description\": \"Tóquio, a movimentada capital do Japão, combina o estilo ultramoderno com o tradicional, desde arranha-céus iluminados por neon a templos históricos. O opulento santuário xintoísta Meiji é conhecido por seu altíssimo portão e pelas florestas circundantes.\",\n    \"photoUrl\": \"https://a.cdn-hotels.com/gdcs/production4/d842/1da7b753-73d3-4f87-9661-13fc8b819242.jpg?impolicy=fcrop&w=800&h=533&q=medium\",\n    \"countryIso\": \"US\",\n    \"typeId\": \"06ec89c4-dfe9-4dd9-9751-819c615dc542\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/destination",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"destination"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "destination",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Curitiba\",\n    \"description\": \"Curitiba é a capital do estado do Paraná, na região sul do Brasil.\",\n    \"photoUrl\": \"https://www.viajeparana.com/sites/viaje-parana/arquivos_restritos/files/styles/escala_e_corta_915_555_/public/imagem/2019-02/botanical-garden-2168222_1920.jpg\",\n    \"countryIso\": \"BR\",\n    \"typeId\": \"06ec89c4-dfe9-4dd9-9751-819c615dc542\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/destination/{{id}}",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"destination",
+										"{{id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "destination",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/destination/{{id}}",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"destination",
+										"{{id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Destination Types",
+					"item": [
+						{
+							"name": "destinationTypes",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/destinationTypes",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"destinationTypes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "destinationType",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/destinationType/{{id}}",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"destinationType",
+										"{{id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "destinationType",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Europa\",\n    \"iconUrl\": \"https://cdn-icons-png.flaticon.com/512/2076/2076387.png\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/destinationType",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"destinationType"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "destinationType",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Europa\",\n    \"iconUrl\": \"https://cdn-icons-png.flaticon.com/512/2076/2076387.png\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/destinationType/{{id}}",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"destinationType",
+										"{{id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "destinationType",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/destinationType/{{id}}",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"destinationType",
+										"{{id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Destination Attractions",
+					"item": [
+						{
+							"name": "destinationAttractions",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/destinationAttractions",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"destinationAttractions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "destinationAttraction",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/destinationAttraction/{{id}}",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"destinationAttraction",
+										"{{id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "destinationAttraction",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Jardim Botanico\",\n    \"destinationId\": \"82a65e71-08db-4fee-a9e0-0cf5cd942b03\",\n    \"longitude\": -49.24129687247266,\n    \"latitude\": -25.44182483233599\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/destinationAttraction",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"destinationAttraction"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "destinationAttraction",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Jardim Botanico\",\n    \"destinationId\": \"82a65e71-08db-4fee-a9e0-0cf5cd942b03\",\n    \"longitude\": -49.24129687247266,\n    \"latitude\": -25.44182483233599\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/destinationAttraction/{{id}}",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"destinationAttraction",
+										"{{id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "destinationAttraction",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/destinationAttraction/{{id}}",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"destinationAttraction",
+										"{{id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Users",
+					"item": [
+						{
+							"name": "users",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/users",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "user",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Admin\",\n    \"email\": \"admin@admin.com\",\n    \"password\": \"admin\",\n    \"role\": \"admin\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/user",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"user"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "App",
+			"item": [
+				{
+					"name": "/app/home",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/app/home",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"app",
+								"home"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/app/search",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/app/search?term={{term}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"app",
+								"search"
+							],
+							"query": [
+								{
+									"key": "term",
+									"value": "{{term}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/app/destinationDetails",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/app/destinationDetails/{{destinationId}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"app",
+								"destinationDetails",
+								"{{destinationId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/app/register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"save auth token\", function () {",
+									"    var token = pm.response.json().token;",
+									"    pm.collectionVariables.set(\"JWT_TOKEN\", token)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"user\",\n    \"email\": \"user@user.com\",\n    \"password\": \"123\",\n    \"confirmPassword\": \"123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/app/register",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"app",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/app/login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"save auth token\", function () {",
+									"    var token = pm.response.json().token;",
+									"    pm.collectionVariables.set(\"JWT_TOKEN\", token)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"user@user.com\",\n    \"password\": \"123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/app/login",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"app",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/app/destinationRating",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": \"b131fdf1-0250-4e67-823f-04bb71a6869d\",\n    \"destinationId\": \"82a65e71-08db-4fee-a9e0-0cf5cd942b03\",\n    \"ratingText\": \"Teste\",\n    \"rate\": 5\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/app/destinationRating",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"app",
+								"destinationRating"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/app/favorites",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/app/favorites/{{userId}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"app",
+								"favorites",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/app/removeFavorite",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/app/removeFavorite/{{favoriteId}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"app",
+								"removeFavorite",
+								"{{favoriteId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/app/addFavorite",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": \"b131fdf1-0250-4e67-823f-04bb71a6869d\",\n    \"destinationId\": \"82a65e71-08db-4fee-a9e0-0cf5cd942b03\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/app/addFavorite",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"app",
+								"addFavorite"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_URL",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "JWT_TOKEN",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
