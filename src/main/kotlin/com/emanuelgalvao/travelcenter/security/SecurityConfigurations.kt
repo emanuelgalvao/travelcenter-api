@@ -49,8 +49,8 @@ class SecurityConfigurations {
                     it.requestMatchers(HttpMethod.POST, "/app/login").permitAll()
                     it.requestMatchers(HttpMethod.POST, "/app/destinationRating").authenticated()
                     it.requestMatchers(HttpMethod.POST, "/app/addFavorite").authenticated()
-                    it.requestMatchers(HttpMethod.GET, "/app/removeFavorite").authenticated()
-                    it.requestMatchers(HttpMethod.POST, "/app/favorites").authenticated()
+                    it.requestMatchers(HttpMethod.DELETE, "/app/removeFavorite/*").authenticated()
+                    it.requestMatchers(HttpMethod.GET, "/app/favorites/*").authenticated()
                 }
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter::class.java)
                 .build()

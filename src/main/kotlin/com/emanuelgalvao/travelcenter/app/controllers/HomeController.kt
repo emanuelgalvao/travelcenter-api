@@ -1,10 +1,10 @@
 package com.emanuelgalvao.travelcenter.app.controllers
 
-import com.emanuelgalvao.travelcenter.app.dto.HomeDataDTO
-import com.emanuelgalvao.travelcenter.app.dto.HomeSectionDTO
-import com.emanuelgalvao.travelcenter.app.dto.HomeSectionDestinationDTO
+import com.emanuelgalvao.travelcenter.app.dto.response.HomeDataResponseDTO
+import com.emanuelgalvao.travelcenter.app.dto.response.HomeSectionResponseDTO
+import com.emanuelgalvao.travelcenter.app.utils.TipUtils
+import com.emanuelgalvao.travelcenter.app.utils.toResponseDTO
 import com.emanuelgalvao.travelcenter.entities.Country
-import com.emanuelgalvao.travelcenter.entities.Destination
 import com.emanuelgalvao.travelcenter.repositories.DestinationRepository
 import com.emanuelgalvao.travelcenter.repositories.DestinationTypeRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -23,44 +23,38 @@ class HomeController {
     lateinit var destinationRepository: DestinationRepository
 
     @GetMapping("/home")
-    fun getHomeData(): HomeDataDTO {
+    fun getHomeData(): HomeDataResponseDTO {
         val destinationTypes = destinationTypeRepository.findAll()
-        val sections: MutableList<HomeSectionDTO> = mutableListOf()
+        val sections: MutableList<HomeSectionResponseDTO> = mutableListOf()
 
-        val mostRatedDestinations = destinationRepository.findTop5ByOrderByRate().map {
-            mapDestinationToDTO(it)
+        val allDestinations = destinationRepository.findAll()
+
+        val mostRatedDestinations = allDestinations.filter { it.country.iso != "BR" }.map {
+            it.toResponseDTO()
         }
 
         val inBrazilDestinations = destinationRepository.findTop5ByCountry(Country("BR", "")).map {
-            mapDestinationToDTO(it)
+            it.toResponseDTO()
         }
 
         sections.add(
-            HomeSectionDTO(
-                name = "Destinos mais bem avaliados",
+            HomeSectionResponseDTO(
+                name = "Destinos fora do Brasil",
                 destinations = mostRatedDestinations
             )
         )
 
         sections.add(
-            HomeSectionDTO(
+            HomeSectionResponseDTO(
                 name = "Destinos no Brasil",
                 destinations = inBrazilDestinations
             )
         )
 
-        return HomeDataDTO(
+        return HomeDataResponseDTO(
+            tip = TipUtils.getRandomTip(),
             destinationTypes = destinationTypes,
             sections = sections
-        )
-    }
-
-    private fun mapDestinationToDTO(destination: Destination): HomeSectionDestinationDTO = destination.run {
-        return  HomeSectionDestinationDTO(
-            id = this.id,
-            name = this.name,
-            photo = this.photoUrl,
-            rate = this.rate.toString()
         )
     }
 

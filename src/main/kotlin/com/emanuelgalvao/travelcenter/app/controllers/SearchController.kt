@@ -1,7 +1,6 @@
 package com.emanuelgalvao.travelcenter.app.controllers
 
-import com.emanuelgalvao.travelcenter.app.dto.SearchDestinationDTO
-import com.emanuelgalvao.travelcenter.entities.Destination
+import com.emanuelgalvao.travelcenter.app.dto.response.SearchDestinationResponseDTO
 import com.emanuelgalvao.travelcenter.repositories.DestinationRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.GetMapping
@@ -17,9 +16,9 @@ class SearchController {
     lateinit var repository: DestinationRepository
 
     @GetMapping("/search")
-    fun search(@RequestParam term: String): List<SearchDestinationDTO> {
+    fun search(@RequestParam term: String): List<SearchDestinationResponseDTO> {
         return repository.findByNameContains(term).map {
-            SearchDestinationDTO(
+            SearchDestinationResponseDTO(
                 id = it.id,
                 name = it.name
             )

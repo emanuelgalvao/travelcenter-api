@@ -1,7 +1,8 @@
 package com.emanuelgalvao.travelcenter.app.controllers
 
-import com.emanuelgalvao.travelcenter.app.dto.DestinationDetailsDataDTO
-import com.emanuelgalvao.travelcenter.app.dto.DestinationDetailsInfoDTO
+import com.emanuelgalvao.travelcenter.app.dto.response.DestinationDetailsDataResponseDTO
+import com.emanuelgalvao.travelcenter.app.dto.response.DestinationDetailsInfoResponseDTO
+import com.emanuelgalvao.travelcenter.app.utils.toResponseDTO
 import com.emanuelgalvao.travelcenter.exceptions.RegisterNotFoundException
 import com.emanuelgalvao.travelcenter.repositories.DestinationAttractionRepository
 import com.emanuelgalvao.travelcenter.repositories.DestinationRatingRepository
@@ -32,12 +33,16 @@ class DestinationDetailsController {
                 RegisterNotFoundException("Destino não encontrado.")
             }
 
-            val attractions = destinationAttractionRepository.findByDestinationId(id)
+            val attractions = destinationAttractionRepository.findByDestinationId(id).map {
+                it.toResponseDTO()
+            }
 
-            val ratings = ratingRepository.findByDestinationId(id)
+            val ratings = ratingRepository.findByDestinationId(id).map {
+                it.toResponseDTO()
+            }
 
-            DestinationDetailsDataDTO(
-                destinationInfo = DestinationDetailsInfoDTO(
+            DestinationDetailsDataResponseDTO(
+                destinationInfo = DestinationDetailsInfoResponseDTO(
                     name = destination.name,
                     photoUrl = destination.photoUrl,
                     description = destination.description

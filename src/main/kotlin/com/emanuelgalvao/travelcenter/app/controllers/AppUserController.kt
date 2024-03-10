@@ -46,6 +46,7 @@ class AppUserController {
             user?.let {
                 val token = tokenService.generateToken(it)
                 val authenticationOutputDTO = AuthenticationOutputDTO(
+                    id = it.id,
                     name = it.name,
                     email = it.email,
                     token = token
@@ -88,6 +89,7 @@ class AppUserController {
             user?.let {
                 val token = tokenService.generateToken(it)
                 val authenticationOutputDTO = AuthenticationOutputDTO(
+                    id = it.id,
                     name = it.name,
                     email = it.email,
                     token = token
