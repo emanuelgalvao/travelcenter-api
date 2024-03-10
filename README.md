@@ -8,6 +8,8 @@ Objetivo do projeto era realizar o desenvolvimento de uma API ou MBaaS com uso d
 
 Projeto desenvolvido utilizando SpringBoot com a linguagem Kotlin e banco de dados MySQL.
 
+Caso queira ver o código do aplicativo que realiza o consumo dessa API, ele pode ser contrado [aqui](https://github.com/emanuelgalvao/travelcenter-ios).
+
 ### Endpoints disponíveis
 
 - Após clonar o projeto e executar a API, você pode realizar o teste dos endpoints utilizando [essa collection do postman](https://github.com/emanuelgalvao/travelcenter-api/blob/main/readme/travelcenter.postman_collection.json).
