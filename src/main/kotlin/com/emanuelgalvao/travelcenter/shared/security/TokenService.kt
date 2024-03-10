@@ -2,6 +2,7 @@ package com.emanuelgalvao.travelcenter.shared.security
 
 import com.emanuelgalvao.travelcenter.shared.entities.User
 import com.emanuelgalvao.travelcenter.shared.exceptions.BadRequestException
+import com.emanuelgalvao.travelcenter.shared.repositories.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.oauth2.jwt.JwsHeader
 import org.springframework.security.oauth2.jwt.JwtClaimsSet
@@ -22,6 +23,9 @@ class TokenService {
     @Autowired
     private lateinit var jwtDecoder: JwtDecoder
 
+    @Autowired
+    lateinit var userRepository: UserRepository
+
     fun generateToken(user: User): String {
         val jwsHeader = JwsHeader.with { "HS256" }.build()
         val claims = JwtClaimsSet.builder()
@@ -40,6 +44,15 @@ class TokenService {
             throw BadRequestException("Token inválido.")
         }
     }
+
+    fun getUserIdFromHeaders(headers: Map<String, String>): String? {
+        return headers["authorization"]?.let {
+            val email = validateToken(it.replace("Bearer ", ""))
+            val user = userRepository.findByEmailAndRole(email, UserRole.DEFAULT_USER)
+            user.id
+        }
+    }
+
 
     private fun getExpirationDate(): Instant {
         return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"))

@@ -22,7 +22,7 @@ fun DestinationRating.toResponseDTO(): DestinationDetailsRatingResponseDTO =
         id = this.id,
         userName = this.user.name,
         description = this.description,
-        rating = this.rating
+        rating = this.rating.toString()
     )
 
 fun Destination.toResponseDTO(): HomeSectionDestinationResponseDTO =

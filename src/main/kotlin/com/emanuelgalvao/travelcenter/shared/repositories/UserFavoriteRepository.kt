@@ -8,4 +8,6 @@ interface UserFavoriteRepository: JpaRepository<UserFavorite, String> {
     fun findByUserId(id: String): List<UserFavorite>
 
     fun findByDestinationId(id: String): List<UserFavorite>
+
+    fun findByUserIdAndDestinationId(userId: String, destinationId: String): List<UserFavorite>
 }

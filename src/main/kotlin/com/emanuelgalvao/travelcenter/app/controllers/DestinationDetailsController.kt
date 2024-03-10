@@ -7,11 +7,10 @@ import com.emanuelgalvao.travelcenter.shared.exceptions.RegisterNotFoundExceptio
 import com.emanuelgalvao.travelcenter.shared.repositories.DestinationAttractionRepository
 import com.emanuelgalvao.travelcenter.shared.repositories.DestinationRatingRepository
 import com.emanuelgalvao.travelcenter.shared.repositories.DestinationRepository
+import com.emanuelgalvao.travelcenter.shared.repositories.UserFavoriteRepository
+import com.emanuelgalvao.travelcenter.shared.security.TokenService
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/app")
@@ -26,8 +25,14 @@ class DestinationDetailsController {
     @Autowired
     lateinit var ratingRepository: DestinationRatingRepository
 
+    @Autowired
+    lateinit var favoriteRepository: UserFavoriteRepository
+
+    @Autowired
+    lateinit var tokenService: TokenService
+
     @GetMapping("/destinationDetails/{id}")
-    fun getDestinationDetails(@PathVariable("id") id: String): Any {
+    fun getDestinationDetails(@RequestHeader headers: Map<String, String>, @PathVariable("id") id: String): Any {
         return try {
             val destination = destinationRepository.findById(id).orElseThrow {
                 RegisterNotFoundException("Destino não encontrado.")
@@ -41,11 +46,20 @@ class DestinationDetailsController {
                 it.toResponseDTO()
             }
 
+            var favoriteId = ""
+
+            tokenService.getUserIdFromHeaders(headers)?.let {
+                val favorite = favoriteRepository.findByUserIdAndDestinationId(it, id)
+                favoriteId = favorite.firstOrNull()?.id ?: ""
+            }
+
             DestinationDetailsDataResponseDTO(
                 destinationInfo = DestinationDetailsInfoResponseDTO(
                     name = destination.name,
                     photoUrl = destination.photoUrl,
-                    description = destination.description
+                    description = destination.description,
+                    favoriteId = favoriteId,
+                    rate = destination.rate.toString()
                 ),
                 destinationAttractions = attractions,
                 ratings = ratings

@@ -4,5 +4,5 @@ data class DestinationDetailsRatingResponseDTO(
     val id: String,
     val userName: String,
     val description: String,
-    val rating: Int
+    val rating: String
 )
